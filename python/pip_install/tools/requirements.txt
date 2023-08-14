@@ -8,7 +8,7 @@ packaging==22.0
 pep517
 pip==22.3.1
 pip_tools==6.12.1
-setuptools==60.10
+setuptools==65.5.1
 tomli
 wheel==0.38.4
 zipp==1.0.0
