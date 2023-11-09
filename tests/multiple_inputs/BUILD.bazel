@@ -16,6 +16,7 @@ compile_pip_requirements(
         "b/pyproject.toml",
     ],
     requirements_txt = "multiple_pyproject_toml.txt",
+    requirements_windows = "multiple_pyproject_toml_windows.txt",
 )
 
 compile_pip_requirements(
@@ -27,4 +28,5 @@ compile_pip_requirements(
         "requirements_2.in",
     ],
     requirements_txt = "multiple_inputs.txt",
+    requirements_windows = "multiple_inputs_windows.txt",
 )
