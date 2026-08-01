@@ -102,6 +102,7 @@ _TARGETS = {
     "//python/cc:current_py_cc_headers_abi3": True,
     "//python/cc:py_cc_toolchain": True,
     "//python/cc:py_cc_toolchain_info": True,
+    "//python/cc:py_extension": True,
     "//python/config_settings:venv": True,
     "//python/entry_points:py_console_script_binary": True,
     "//python/local_toolchains:repos": True,

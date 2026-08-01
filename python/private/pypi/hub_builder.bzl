@@ -8,6 +8,7 @@ load("//python/private:text_util.bzl", "render")
 load("//python/private:version.bzl", "version")
 load("//python/private:version_label.bzl", "version_label")
 load(":attrs.bzl", "use_isolated")
+load(":hash.bzl", "hash")
 load(":parse_requirements.bzl", "parse_requirements")
 load(":pep508_env.bzl", "env")
 load(":pep508_evaluate.bzl", "evaluate")
@@ -676,7 +677,12 @@ def _whl_repo(
         args["index_url"] = index_url
 
     args["urls"] = [src.url]
-    args["sha256"] = src.sha256
+
+    # The digest is always passed in the SRI format that the bazel downloader
+    # supports. It may be empty if the digest uses a hash algorithm that
+    # cannot be expressed as SRI (e.g. `md5`), in which case `whl_library`
+    # will download without verification and warn.
+    args["integrity"] = hash.integrity(src.digest)
     args["filename"] = src.filename
 
     # TODO @aignas 2025-11-02: once we have pipstar enabled we can add extra
@@ -685,7 +691,7 @@ def _whl_repo(
     target_platforms = src.target_platforms if is_multiple_versions else []
 
     return struct(
-        repo_name = whl_repo_name(src.filename, src.sha256, *target_platforms),
+        repo_name = whl_repo_name(src.filename, src.digest, *target_platforms),
         args = args,
         config_setting = whl_config_setting(
             version = python_version,

@@ -17,6 +17,16 @@
 PyCcToolchainInfo = provider(
     doc = "C/C++ information about the Python runtime.",
     fields = {
+        "abi_flags": """\
+:type: str
+
+The runtime's ABI flags, i.e. `sys.abiflags` (e.g. 't' for free-threaded builds).
+""",
+        "abi_tag": """\
+:type: str
+
+The ABI tag for extension modules, e.g. 'cpython-311' or 'cpython-313t'.
+""",
         "headers": """\
 :type: struct
 
@@ -92,10 +102,28 @@ If available, information about C libraries, struct with fields:
     e.g. `:current_py_cc_headers` to act as the underlying headers target it
     represents).
 """,
+        "platform_machine": """
+:type: str
+
+The [PEP 508](https://peps.python.org/pep-0508/) `platform_machine` marker
+value for the target architecture, e.g. 'x86_64', 'aarch64'.
+""",
+        "platform_tag": """\
+:type: str | None
+
+The PEP 3149 / PEP 425 platform tag for extension modules, e.g.
+'x86_64-linux-gnu', 'darwin', or 'win_amd64'.
+""",
         "python_version": """
 :type: str
 
 The Python Major.Minor version.
+""",
+        "sys_platform": """
+:type: str
+
+The [PEP 508](https://peps.python.org/pep-0508/) `sys_platform` marker value
+for the target OS, e.g. 'linux', 'darwin', 'win32'.
 """,
     },
 )
